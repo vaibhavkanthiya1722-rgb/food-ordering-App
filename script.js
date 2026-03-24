@@ -5,7 +5,7 @@ function hidePlaceholder() {
     document.getElementById("placeholder").style.display = "none";
 }
 
-/* SEARCH WEATHER */
+
 async function getWeather() {
 
     let city = document.getElementById("city").value;
@@ -20,7 +20,6 @@ async function getWeather() {
     getForecast(city);
 }
 
-/* AUTO LOCATION */
 function getLocationWeather() {
 
     navigator.geolocation.getCurrentPosition(async (pos) => {
@@ -37,7 +36,7 @@ function getLocationWeather() {
     });
 }
 
-/* UPDATE UI */
+
 function updateUI(data) {
 
     hidePlaceholder();
@@ -53,7 +52,7 @@ function updateUI(data) {
     setWeatherAnimation(data.weather[0].main);
 }
 
-/* FORECAST */
+
 async function getForecast(city) {
 
     let res = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`);
@@ -82,7 +81,7 @@ async function getForecast(city) {
     createChart(labels, temps);
 }
 
-/* CHART */
+
 function createChart(labels, temps) {
 
     let ctx = document.getElementById("weatherChart").getContext("2d");
@@ -103,7 +102,6 @@ function createChart(labels, temps) {
     });
 }
 
-/* IMAGE */
 function setWeatherImage(weather) {
     let img = document.getElementById("weatherImg");
 
@@ -115,7 +113,7 @@ function setWeatherImage(weather) {
         img.src = "https://cdn-icons-png.flaticon.com/512/1163/1163624.png";
 }
 
-/* CARD COLOR */
+
 function setCardTheme(weather) {
     let card = document.querySelector(".card");
 
@@ -127,7 +125,7 @@ function setCardTheme(weather) {
         card.style.background = "linear-gradient(135deg,#4facfe,#00f2fe)";
 }
 
-/* ANIMATION */
+
 function setWeatherAnimation(weather) {
     let rain = document.querySelector(".rain");
     let clouds = document.querySelectorAll(".cloud");
@@ -144,7 +142,6 @@ function setWeatherAnimation(weather) {
     }
 }
 
-/* DARK MODE */
 function toggleDarkMode() {
     document.body.classList.toggle("dark");
 }
