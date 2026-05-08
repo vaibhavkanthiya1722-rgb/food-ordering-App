@@ -1,20 +1,19 @@
-// ======================================
 // FOOD EXPRESS WEBSITE JAVASCRIPT
-// ======================================
 
 
-// ============================
+
+
 // CART DATA
-// ============================
+
 
 let cartCount = 0;
 
 let cartItems = [];
 
 
-// ============================
+
 // ELEMENT SELECTION
-// ============================
+
 
 const cartBtn =
     document.getElementById("cart-btn");
@@ -29,9 +28,9 @@ const claimOfferBtn =
     document.getElementById("claim-offer-btn");
 
 
-// ============================
+
 // ADD TO CART FUNCTION
-// ============================
+
 
 addCartButtons.forEach((button) => {
 
@@ -75,9 +74,9 @@ addCartButtons.forEach((button) => {
 });
 
 
-// ============================
+
 // OPEN CART FUNCTION
-// ============================
+
 
 cartBtn.addEventListener("click", () => {
 
@@ -125,9 +124,9 @@ cartBtn.addEventListener("click", () => {
 });
 
 
-// ============================
+
 // ORDER BUTTON
-// ============================
+
 
 orderBtn.addEventListener("click", () => {
 
@@ -139,9 +138,7 @@ orderBtn.addEventListener("click", () => {
 });
 
 
-// ============================
 // CLAIM OFFER BUTTON
-// ============================
 
 claimOfferBtn.addEventListener("click", () => {
 
@@ -152,9 +149,9 @@ claimOfferBtn.addEventListener("click", () => {
 });
 
 
-// ============================
+
 // NAVBAR ACTIVE EFFECT
-// ============================
+
 
 const navLinks =
     document.querySelectorAll(".nav-links a");
@@ -176,9 +173,9 @@ navLinks.forEach((link) => {
 });
 
 
-// ============================
+
 // PAGE LOAD MESSAGE
-// ============================
+
 
 window.addEventListener("load", () => {
 
