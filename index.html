@@ -2,60 +2,172 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <title>Pro Weather App</title>
-    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>FoodExpress - Food Ordering Website</title>
+
+    <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
 
+    <!-- HEADER -->
 
-    <div class="weather-anim">
-        <div class="cloud cloud1"></div>
-        <div class="cloud cloud2"></div>
-        <div class="rain"></div>
-    </div>
+    <header>
 
-    <div class="card">
+        <nav class="navbar">
 
-        <div class="main">
+            <div class="logo">FoodExpress</div>
 
-            <div class="left">
+            <ul class="nav-links">
+                <li><a href="#">Home</a></li>
+                <li><a href="#menu">Menu</a></li>
+                <li><a href="#offer">Offers</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
 
-                <div class="top">
-                    <h2>Weather App</h2>
-                    <div>
-                        <button onclick="getLocationWeather()">📍</button>
-                        <button onclick="toggleDarkMode()">🌙</button>
-                    </div>
-                </div>
+            <button id="cart-btn">Cart (0)</button>
 
-                <div class="search">
-                    <input type="text" id="city" placeholder="Enter city">
-                    <button onclick="getWeather()">Search</button>
-                </div>
+        </nav>
 
-                <p id="placeholder">Search city or use 📍 location</p>
+    </header>
 
-                <div class="weather-box">
-                    <img id="icon">
-                    <h1 id="temp">--°C</h1>
-                    <p id="desc"></p>
-                </div>
+    <!-- HERO SECTION -->
 
-                <div id="forecast" class="forecast"></div>
-                <canvas id="weatherChart"></canvas>
+    <section class="hero">
 
-            </div>
-            <div class="right">
-                <img id="weatherImg" src="https://cdn-icons-png.flaticon.com/512/869/869869.png">
+        <div class="hero-content">
+
+            <h1>Delicious Food Delivered To Your Doorstep</h1>
+
+            <p>
+                Enjoy hot and tasty meals from your favorite restaurants
+                with fast delivery and amazing offers.
+            </p>
+
+            <button id="order-btn">Order Now</button>
+
+        </div>
+
+    </section>
+
+    <!-- MENU SECTION -->
+
+    <h2 class="section-title" id="menu">Popular Dishes</h2>
+
+    <section class="foods">
+
+        <!-- CARD 1 -->
+
+        <div class="food-card">
+
+            <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=1200&auto=format&fit=crop"
+                alt="Pizza" />
+
+            <div class="food-info">
+
+                <h3>Cheese Pizza</h3>
+
+                <p>
+                    Loaded with extra cheese and fresh toppings.
+                </p>
+
+                <div class="price">₹299</div>
+
+                <button class="add-cart">Add To Cart</button>
+
             </div>
 
         </div>
 
-    </div>
+        <!-- CARD 2 -->
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <div class="food-card">
+
+            <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=1200&auto=format&fit=crop"
+                alt="Burger" />
+
+            <div class="food-info">
+
+                <h3>Veg Burger</h3>
+
+                <p>
+                    Crispy patty burger with fresh veggies.
+                </p>
+
+                <div class="price">₹199</div>
+
+                <button class="add-cart">Add To Cart</button>
+
+            </div>
+
+        </div>
+
+        <!-- CARD 3 -->
+
+        <div class="food-card">
+
+            <img src="https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?q=80&w=1200&auto=format&fit=crop"
+                alt="Pasta" />
+
+            <div class="food-info">
+
+                <h3>Italian Pasta</h3>
+
+                <p>
+                    Creamy and delicious white sauce pasta.
+                </p>
+
+                <div class="price">₹249</div>
+
+                <button class="add-cart">Add To Cart</button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- OFFER SECTION -->
+
+    <section class="offer" id="offer">
+
+        <h2>Get 50% OFF On First Order</h2>
+
+        <p>
+            Use Coupon Code:
+            <strong>FOOD50</strong>
+        </p>
+
+        <button id="claim-offer-btn">Claim Offer</button>
+
+    </section>
+
+    <!-- CONTACT SECTION -->
+
+    <section class="contact" id="contact">
+
+        <h2>Contact Us</h2>
+
+        <p>Email: support@foodexpress.com</p>
+
+        <p>Phone: +91 9876543210</p>
+
+        <p>Bhopal, Madhya Pradesh</p>
+
+    </section>
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <p>
+            © 2026 FoodExpress. All Rights Reserved.
+        </p>
+
+    </footer>
+
     <script src="script.js"></script>
 
 </body>

@@ -1,147 +1,189 @@
-let apiKey = "d8c214d83ec51c434559dda4c5308a80";
-let chart;
-
-function hidePlaceholder() {
-    document.getElementById("placeholder").style.display = "none";
-}
+// ======================================
+// FOOD EXPRESS WEBSITE JAVASCRIPT
+// ======================================
 
 
-async function getWeather() {
+// ============================
+// CART DATA
+// ============================
 
-    let city = document.getElementById("city").value;
-    if (!city) return alert("Enter city");
+let cartCount = 0;
 
-    let res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`);
-    let data = await res.json();
+let cartItems = [];
 
-    if (data.cod != 200) return alert(data.message);
 
-    updateUI(data);
-    getForecast(city);
-}
+// ============================
+// ELEMENT SELECTION
+// ============================
 
-function getLocationWeather() {
+const cartBtn =
+    document.getElementById("cart-btn");
 
-    navigator.geolocation.getCurrentPosition(async (pos) => {
+const addCartButtons =
+    document.querySelectorAll(".add-cart");
 
-        let lat = pos.coords.latitude;
-        let lon = pos.coords.longitude;
+const orderBtn =
+    document.getElementById("order-btn");
 
-        let res = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`);
-        let data = await res.json();
+const claimOfferBtn =
+    document.getElementById("claim-offer-btn");
 
-        updateUI(data);
-        getForecast(data.name);
+
+// ============================
+// ADD TO CART FUNCTION
+// ============================
+
+addCartButtons.forEach((button) => {
+
+    button.addEventListener("click", () => {
+
+        // SELECT FOOD CARD
+
+        const foodCard =
+            button.parentElement;
+
+        // GET FOOD NAME
+
+        const foodName =
+            foodCard.querySelector("h3").innerText;
+
+        // GET FOOD PRICE
+
+        const foodPrice =
+            foodCard.querySelector(".price").innerText;
+
+        // STORE ITEM
+
+        cartItems.push({
+            name: foodName,
+            price: foodPrice
+        });
+
+        // UPDATE CART COUNT
+
+        cartCount++;
+
+        cartBtn.innerText =
+            `Cart (${cartCount})`;
+
+        // SUCCESS MESSAGE
+
+        alert(`${foodName} added to cart successfully!`);
 
     });
-}
+
+});
 
 
-function updateUI(data) {
+// ============================
+// OPEN CART FUNCTION
+// ============================
 
-    hidePlaceholder();
+cartBtn.addEventListener("click", () => {
 
-    document.getElementById("temp").innerText = data.main.temp + "°C";
-    document.getElementById("desc").innerText = data.weather[0].description;
+    // EMPTY CART CHECK
 
-    document.getElementById("icon").src =
-        `https://openweathermap.org/img/wn/${data.weather[0].icon}.png`;
+    if (cartItems.length === 0) {
 
-    setWeatherImage(data.weather[0].main);
-    setCardTheme(data.weather[0].main);
-    setWeatherAnimation(data.weather[0].main);
-}
+        alert("🛒 Your cart is empty!");
 
-
-async function getForecast(city) {
-
-    let res = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`);
-    let data = await res.json();
-
-    let forecastDiv = document.getElementById("forecast");
-    forecastDiv.innerHTML = "";
-
-    let labels = [], temps = [];
-
-    for (let i = 0; i < data.list.length; i += 8) {
-
-        let item = data.list[i];
-        let date = new Date(item.dt_txt).toLocaleDateString();
-
-        labels.push(date);
-        temps.push(item.main.temp);
-
-        forecastDiv.innerHTML += `
-      <div class="day">
-        <p>${date}</p>
-        <p>${item.main.temp}°C</p>
-      </div>`;
+        return;
     }
 
-    createChart(labels, temps);
-}
+    // SHOW CART ITEMS
 
+    let cartMessage =
+        "🛒 Your Cart Items:\n\n";
 
-function createChart(labels, temps) {
+    let totalPrice = 0;
 
-    let ctx = document.getElementById("weatherChart").getContext("2d");
+    cartItems.forEach((item, index) => {
 
-    if (chart) chart.destroy();
+        cartMessage +=
+            `${index + 1}. ${item.name} - ${item.price}\n`;
 
-    chart = new Chart(ctx, {
-        type: "line",
-        data: {
-            labels,
-            datasets: [{
-                label: "Temp °C",
-                data: temps,
-                borderWidth: 2,
-                fill: true
-            }]
-        }
+        // PRICE CALCULATION
+
+        totalPrice += parseInt(
+            item.price.replace("₹", "")
+        );
+
     });
-}
 
-function setWeatherImage(weather) {
-    let img = document.getElementById("weatherImg");
+    // ADD TOTAL
 
-    if (weather === "Clear")
-        img.src = "https://cdn-icons-png.flaticon.com/512/869/869869.png";
-    else if (weather === "Clouds")
-        img.src = "https://cdn-icons-png.flaticon.com/512/414/414825.png";
-    else if (weather === "Rain")
-        img.src = "https://cdn-icons-png.flaticon.com/512/1163/1163624.png";
-}
+    cartMessage +=
+        `\n------------------------\n`;
 
+    cartMessage +=
+        `Total Amount: ₹${totalPrice}`;
 
-function setCardTheme(weather) {
-    let card = document.querySelector(".card");
+    // DISPLAY CART
 
-    if (weather === "Clear")
-        card.style.background = "linear-gradient(135deg,#fceabb,#f8b500)";
-    else if (weather === "Clouds")
-        card.style.background = "linear-gradient(135deg,#dfe6e9,#b2bec3)";
-    else if (weather === "Rain")
-        card.style.background = "linear-gradient(135deg,#4facfe,#00f2fe)";
-}
+    alert(cartMessage);
+
+});
 
 
-function setWeatherAnimation(weather) {
-    let rain = document.querySelector(".rain");
-    let clouds = document.querySelectorAll(".cloud");
+// ============================
+// ORDER BUTTON
+// ============================
 
-    rain.style.opacity = "0";
-    clouds.forEach(c => c.style.display = "none");
+orderBtn.addEventListener("click", () => {
 
-    if (weather === "Clouds")
-        clouds.forEach(c => c.style.display = "block");
+    document.getElementById("menu")
+        .scrollIntoView({
+            behavior: "smooth"
+        });
 
-    if (weather === "Rain") {
-        rain.style.opacity = "1";
-        clouds.forEach(c => c.style.display = "block");
-    }
-}
+});
 
-function toggleDarkMode() {
-    document.body.classList.toggle("dark");
-}
+
+// ============================
+// CLAIM OFFER BUTTON
+// ============================
+
+claimOfferBtn.addEventListener("click", () => {
+
+    alert(
+        "🎉 Congratulations!\n\nCoupon Code FOOD50 Applied Successfully!"
+    );
+
+});
+
+
+// ============================
+// NAVBAR ACTIVE EFFECT
+// ============================
+
+const navLinks =
+    document.querySelectorAll(".nav-links a");
+
+navLinks.forEach((link) => {
+
+    link.addEventListener("click", () => {
+
+        navLinks.forEach((nav) => {
+
+            nav.style.color = "white";
+
+        });
+
+        link.style.color = "#ffe0d5";
+
+    });
+
+});
+
+
+// ============================
+// PAGE LOAD MESSAGE
+// ============================
+
+window.addEventListener("load", () => {
+
+    console.log(
+        "FoodExpress Website Loaded Successfully 🚀"
+    );
+
+});
